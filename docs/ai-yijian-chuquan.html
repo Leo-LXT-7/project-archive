@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>AI一键出圈 - 商业产品计划书</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    background: #0f172a;
+    color: #1e293b;
+    line-height: 1.6;
+    font-size: 13px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* 封面 */
+  .cover {
+    height: 100vh;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #4c1d95 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    position: relative;
+    page-break-after: always;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
+    animation: rotate 20s linear infinite;
+  }
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .cover h1 {
+    font-size: 56px;
+    font-weight: 900;
+    background: linear-gradient(to right, #c4b5fd, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+    z-index: 1;
+  }
+  .cover .subtitle {
+    font-size: 20px;
+    color: #cbd5e1;
+    margin-bottom: 60px;
+    z-index: 1;
+  }
+  .cover .meta {
+    font-size: 14px;
+    color: #94a3b8;
+    z-index: 1;
+  }
+  .cover .meta span {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin: 0 8px 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* 通用容器 */
+  .page {
+    background: #fff;
+    max-width: 100%;
+    min-height: 100vh;
+    padding: 50px 60px;
+    position: relative;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* 标题 */
+  h2 {
+    font-size: 22px;
+    color: #0f172a;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #6366f1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 24px;
+    background: linear-gradient(to bottom, #6366f1, #a855f7);
+    border-radius: 3px;
+  }
+  h3 {
+    font-size: 16px;
+    color: #1e293b;
+    margin: 20px 0 10px;
+    font-weight: 700;
+  }
+
+  /* 卡片和网格 */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    transition: transform 0.2s;
+  }
+  .card h4 {
+    font-size: 15px;
+    color: #1e293b;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card p { font-size: 12px; color: #475569; margin-bottom: 6px; }
+  .card.highlight {
+    background: linear-gradient(135deg, #eef2ff, #faf5ff);
+    border-color: #c7d2fe;
+  }
+
+  /* 标签 */
+  .tag {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 4px 4px 4px 0;
+  }
+  .tag.green { background: #dcfce7; color: #15803d; }
+  .tag.pink { background: #fce7f3; color: #be185d; }
+  .tag.orange { background: #ffedd5; color: #c2410c; }
+
+  /* 手机 UI 模拟 */
+  .phone-mockup {
+    width: 240px;
+    height: 480px;
+    background: #1e293b;
+    border-radius: 30px;
+    padding: 10px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    margin: 0 auto 20px;
+    position: relative;
+    border: 2px solid #334155;
+  }
+  .phone-mockup::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 18px;
+    background: #1e293b;
+    border-radius: 0 0 12px 12px;
+    z-index: 2;
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .phone-header {
+    padding: 16px 12px 8px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: #0f172a;
+    background: #fff;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .phone-body {
+    flex: 1;
+    padding: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+  }
+  .btn-secondary {
+    background: #f1f5f9;
+    color: #475569;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+  }
+  .image-placeholder {
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(135deg, #1e1b4b, #4c1d95);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 11px;
+  }
+  .copy-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 11px;
+    color: #334155;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .copy-card span.copy-icon {
+    color: #6366f1;
+    font-weight: bold;
+    font-size: 10px;
+  }
+
+  /* 流程时间线 */
+  .timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 30px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    right: 40px;
+    height: 2px;
+    background: #e2e8f0;
+    z-index: 0;
+  }
+  .timeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+    width: 120px;
+  }
+  .timeline-step .circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #6366f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: #6366f1;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .timeline-step .label {
+    font-size: 11px;
+    color: #475569;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  /* 表格 */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 20px;
+    font-size: 12px;
+  }
+  th, td {
+    border: 1px solid #e2e8f0;
+    padding: 10px 12px;
+    text-align: left;
+  }
+  th {
+    background: #f8fafc;
+    color: #1e293b;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  td { color: #475569; }
+
+  /* 数据指标 */
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .metric-card {
+    background: linear-gradient(135deg, #eef2ff, #faf5ff);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid #e0e7ff;
+  }
+  .metric-card .num {
+    font-size: 24px;
+    font-weight: 900;
+    color: #4338ca;
+    margin-bottom: 4px;
+  }
+  .metric-card .desc {
+    font-size: 11px;
+    color: #64748b;
+  }
+
+  /* 页脚 */
+  .footer {
+    position: absolute;
+    bottom: 20px;
+    left: 60px;
+    right: 60px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #94a3b8;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 10px;
+  }
+
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; margin: 0; }
+    .cover { height: 100vh; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 封面 -->
+<div class="cover">
+  <h1>AI一键出圈</h1>
+  <div class="subtitle">照片自动修图 + 场景文案 APP</div>
+  <div style="font-size: 18px; color: #a78bfa; margin-bottom: 40px; font-weight: 600; z-index: 1;">商业产品计划书 V1.1</div>
+  <div class="meta">
+    <span>📅 2026-10-05</span>
+    <span>📄 评审稿</span>
+    <span>🎯 MVP 最小可行产品</span>
+  </div>
+  <div style="margin-top: 60px; font-size: 14px; color: #94a3b8; max-width: 600px; z-index: 1; line-height: 1.8;">
+    导入/拍摄一张照片，AI 识别画面内容，自动完成修图并生成适配朋友圈文案，一键保存图片、复制文案。<br>
+    目标用户：年轻普通用户，不想花时间研究修图、也不想苦想社交文案。
+  </div>
+</div>
+
+<!-- 第1页：市场与痛点 -->
+<div class="page">
+  <h2>市场痛点与机会</h2>
+  
+  <div class="grid-2" style="margin-bottom: 24px;">
+    <div class="card" style="border-left: 4px solid #ef4444;">
+      <h4>😫 用户痛点</h4>
+      <p>1. P图参数多，不会调，调图耗费大量时间。</p>
+      <p>2. 拍完照片，不知道写什么朋友圈文案。</p>
+      <p>3. 修图软件和文案工具割裂，来回切换APP。</p>
+      <p style="margin-top:10px; color:#ef4444; font-weight:600;">用户流程：拍照 → 导入修图 → 保存 → 打开文案工具 → 复制 → 发朋友圈</p>
+    </div>
+    <div class="card highlight" style="border-left: 4px solid #6366f1;">
+      <h4>💡 我们的解决方案</h4>
+      <p style="font-weight:700; color:#4338ca;">一张照片，一次操作</p>
+      <p>AI 自动识别画面内容，同时完成 <strong>智能修图</strong> 与 <strong>朋友圈文案生成</strong>。</p>
+      <p style="margin-top:10px; color:#4338ca; font-weight:600;">新流程：拍照 → AI一键搞定 → 发朋友圈</p>
+    </div>
+  </div>
+
+  <h3>竞品分析</h3>
+  <table>
+    <tr><th>产品</th><th>AI 修图</th><th>AI 文案</th><th>缺点</th></tr>
+    <tr><td>醒图</td><td>⭐⭐⭐⭐⭐</td><td>无自动图文匹配</td><td>无照片识别生成文案</td></tr>
+    <tr><td>美图秀秀</td><td>⭐⭐⭐⭐</td><td>⭐⭐</td><td>文案通用模板，不识别图片内容</td></tr>
+    <tr><td>Canva 可画</td><td>⭐⭐</td><td>⭐⭐⭐⭐</td><td>人像修图弱，偏向海报</td></tr>
+    <tr><td>Adobe Express</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>国内访问慢，文案不贴合朋友圈风格</td></tr>
+  </table>
+
+  <div class="card" style="background: #fef2f2; border-color: #fecaca; margin-top: 10px;">
+    <h4 style="color: #b91c1c;">📌 市场缺口</h4>
+    <p style="color: #991b1b; font-size: 13px;">缺少「AI 看懂图片内容，自动同时修图 + 生成对应氛围感文案」的一体化工具。这是一个明确的蓝海切入点。</p>
+  </div>
+  <div class="footer"><span>AI一键出圈 · 商业计划书</span><span>第 1 页</span></div>
+</div>
+
+<!-- 第2页：产品 UI 展示（核心！） -->
+<div class="page">
+  <h2>产品界面演示（MVP）</h2>
+  <p style="color: #64748b; margin-bottom: 24px;">极简交互，三步完成：选图 → AI处理 → 保存/复制。无需登录，无广告。</p>
+
+  <div class="grid-3" style="margin-top: 20px;">
+    <!-- 首页 -->
+    <div>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="phone-header">AI一键出圈</div>
+          <div class="phone-body" style="justify-content: center; align-items: center; gap: 16px;">
+            <div style="font-size: 36px;">📸</div>
+            <div style="font-size: 12px; color: #64748b; text-align: center;">一张照片<br>自动修图 + 朋友圈文案</div>
+            <div class="btn-primary" style="width: 80%;">拍摄新照片</div>
+            <div class="btn-secondary" style="width: 80%;">从相册选择</div>
+            <div style="font-size: 9px; color: #94a3b8; margin-top: 10px;">图片优先本地处理，不保存用户照片</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; font-weight:700; font-size:13px; color:#334155;">① 首页</div>
+      <div style="text-align:center; font-size:11px; color:#64748b;">极简入口，无广告干扰</div>
+    </div>
+
+    <!-- 处理页 -->
+    <div>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="phone-header">AI 处理中</div>
+          <div class="phone-body" style="justify-content: center; align-items: center; gap: 12px;">
+            <div style="width: 100%; height: 120px; background: linear-gradient(135deg, #c7d2fe, #e9d5ff); border-radius: 10px; display:flex; align-items:center; justify-content:center; font-size:24px;">✨</div>
+            <div style="font-size: 12px; color: #4338ca; font-weight: 600;">正在看懂你的照片…</div>
+            <div style="font-size: 10px; color: #94a3b8; text-align: center;">识别场景：江边、夜景、人像<br>自动调色中…</div>
+            <div style="width: 100%; height: 4px; background: #e2e8f0; border-radius: 2px; margin-top: 10px;">
+              <div style="width: 60%; height: 100%; background: linear-gradient(to right, #6366f1, #a855f7); border-radius: 2px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; font-weight:700; font-size:13px; color:#334155;">② AI 处理页</div>
+      <div style="text-align:center; font-size:11px; color:#64748b;">3-8秒完成识别与修图</div>
+    </div>
+
+    <!-- 结果页 -->
+    <div>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="phone-header">修图结果</div>
+          <div class="phone-body" style="gap: 8px;">
+            <div class="image-placeholder">江边夜景 · 人像</div>
+            <div>
+              <span class="tag">江边</span>
+              <span class="tag">夜景</span>
+              <span class="tag">人像</span>
+            </div>
+            <div style="font-size: 10px; color: #64748b; margin-top: 4px;">亮度 &nbsp; 美颜 &nbsp; 氛围</div>
+            <div class="copy-card"><span>晚风把江面吹成了碎金。</span><span class="copy-icon">复制</span></div>
+            <div class="copy-card"><span>城市灯火很慢，晚风刚刚好。</span><span class="copy-icon">复制</span></div>
+            <div class="copy-card"><span>江边吹风，今天的快乐很简单。</span><span class="copy-icon">复制</span></div>
+            <div class="btn-primary" style="margin-top: 4px;">保存图片</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; font-weight:700; font-size:13px; color:#334155;">③ 结果页</div>
+      <div style="text-align:center; font-size:11px; color:#64748b;">预览 + 4条文案 + 微调滑块</div>
+    </div>
+  </div>
+  <div class="footer"><span>AI一键出圈 · 商业计划书</span><span>第 2 页</span></div>
+</div>
+
+<!-- 第3页：核心功能与流程 -->
+<div class="page">
+  <h2>核心功能与 MVP 范围</h2>
+
+  <div class="timeline">
+    <div class="timeline-step">
+      <div class="circle">1</div>
+      <div class="label">拍摄/相册选图</div>
+    </div>
+    <div class="timeline-step">
+      <div class="circle">2</div>
+      <div class="label">AI 视觉识别</div>
+    </div>
+    <div class="timeline-step">
+      <div class="circle">3</div>
+      <div class="label">自动修图</div>
+    </div>
+    <div class="timeline-step">
+      <div class="circle">4</div>
+      <div class="label">生成 4 条文案</div>
+    </div>
+    <div class="timeline-step">
+      <div class="circle">5</div>
+      <div class="label">保存/复制/发圈</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 20px;">
+    <div class="card">
+      <h4>✅ MVP P0 功能（必须做）</h4>
+      <ul style="padding-left: 16px; font-size: 12px; color: #475569; line-height: 1.8;">
+        <li>拍摄新照片 / 相册选择</li>
+        <li>AI 识别场景标签（江边、夜景、人像等）</li>
+        <li>根据标签自动套用修图参数</li>
+        <li>生成 4 条朋友圈文案（氛围、文艺、口语、短句）</li>
+        <li>保存图片 / 复制单条文案</li>
+        <li>重新生成文案</li>
+        <li>微调滑块（亮度、美颜、氛围）</li>
+        <li>手动修改场景标签（纠正AI错误）</li>
+        <li>隐私优先：本地处理，不上传原图</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>🔄 后续迭代方向</h4>
+      <ul style="padding-left: 16px; font-size: 12px; color: #475569; line-height: 1.8;">
+        <li>文案风格切换（酷拽、搞笑、小红书风）</li>
+        <li>更多细分场景（美食、日落、街拍）</li>
+        <li>多张照片批量处理</li>
+        <li>系统分享面板（分享图片+文案到微信）</li>
+        <li>付费高级滤镜包</li>
+        <li>登录账号与云存储</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>识别-修图-文案映射表</h3>
+  <table>
+    <tr><th>识别标签</th><th>修图方向</th><th>文案方向</th></tr>
+    <tr><td>江边、夜景、人像</td><td>提亮暗部、降噪、冷调、轻度磨皮</td><td>晚风、江边、城市灯火、浪漫</td></tr>
+    <tr><td>户外风景</td><td>提高通透、蓝绿饱和、清晰度</td><td>旅行、逃离城市、自由、周末</td></tr>
+    <tr><td>室内自拍</td><td>提亮、降噪、暖肤、保守磨皮</td><td>自拍、今日状态、轻松口语</td></tr>
+    <tr><td>日落</td><td>暖调、保护高光、饱和+</td><td>黄昏、治愈、浪漫、结束一天</td></tr>
+    <tr><td>城市夜景</td><td>青橙调、降噪、提亮暗部</td><td>城市、夜归、霓虹、孤独感</td></tr>
+  </table>
+  <div class="footer"><span>AI一键出圈 · 商业计划书</span><span>第 3 页</span></div>
+</div>
+
+<!-- 第4页：商业价值与指标 -->
+<div class="page">
+  <h2>商业价值与核心指标</h2>
+
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="num">≤8s</div>
+      <div class="desc">单张图片处理时长</div>
+    </div>
+    <div class="metric-card">
+      <div class="num">≥80%</div>
+      <div class="desc">选图到结果完成率</div>
+    </div>
+    <div class="metric-card">
+      <div class="num">≥60%</div>
+      <div class="desc">文案复制率</div>
+    </div>
+    <div class="metric-card">
+      <div class="num">≥50%</div>
+      <div class="desc">图片保存率</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 20px;">
+    <div class="card highlight">
+      <h4>🔒 隐私与安全（资方关注重点）</h4>
+      <p>1. 图片识别优先端侧完成，不上传原图。</p>
+      <p>2. 修图优先端侧 GPU 完成，速度快且安全。</p>
+      <p>3. 文案生成只上传标签，不涉及图片内容。</p>
+      <p>4. 处理完立即删除，不保存用户照片。</p>
+      <p>5. 清除 GPS 等敏感 EXIF 信息。</p>
+      <p style="margin-top:10px; color:#4338ca; font-weight:600;">符合国内隐私合规要求，降低政策风险。</p>
+    </div>
+    <div class="card">
+      <h4>⚠️ 风险与应对</h4>
+      <p><strong>AI 识别不准 →</strong> 低置信度弹窗 + 手动修改场景标签。</p>
+      <p><strong>美颜过度失真 →</strong> 默认保守美颜，滑块可调低/关闭。</p>
+      <p><strong>文案重复 →</strong> 排除已展示文案，本地去重。</p>
+      <p><strong>处理速度慢 →</strong> 端侧模型优化，GPU 加速。</p>
+      <p><strong>云端失败 →</strong> 本地模板兜底，保证可用性。</p>
+    </div>
+  </div>
+
+  <h3>技术选型建议</h3>
+  <table>
+    <tr><th>模块</th><th>方案</th></tr>
+    <tr><td>跨端框架</td><td>Flutter + 原生插件（兼顾效率与性能）</td></tr>
+    <tr><td>图像识别</td><td>Android: ML Kit / MediaPipe；iOS: Vision / Core ML</td></tr>
+    <tr><td>图像处理</td><td>Android: OpenGL / GPUImage；iOS: Core Image / Metal</td></tr>
+    <tr><td>文案生成</td><td>端侧小模型 或 云端 LLM API（仅传标签）</td></tr>
+  </table>
+  <div class="footer"><span>AI一键出圈 · 商业计划书</span><span>第 4 页</span></div>
+</div>
+
+<!-- 第5页：总结 -->
+<div class="page" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(135deg, #f8fafc, #eef2ff);">
+  <h2 style="border: none; justify-content: center; font-size: 28px;">为什么值得投？</h2>
+  <div style="max-width: 600px; margin-top: 20px;">
+    <div class="card" style="margin-bottom: 16px; text-align: left;">
+      <h4>🎯 精准切入蓝海</h4>
+      <p>市场上没有「AI看懂图片 + 自动修图 + 生成适配文案」的一体化工具，填补空白。</p>
+    </div>
+    <div class="card" style="margin-bottom: 16px; text-align: left;">
+      <h4>⚡ 极简 MVP，快速验证</h4>
+      <p>不做复杂海报、贴纸、视频，聚焦核心闭环，开发成本低，上线速度快。</p>
+    </div>
+    <div class="card" style="margin-bottom: 16px; text-align: left;">
+      <h4>🔒 隐私合规，政策风险低</h4>
+      <p>本地优先处理，不上传原图，符合国内数据安全法规，适合长期运营。</p>
+    </div>
+    <div class="card" style="text-align: left;">
+      <h4>📈 清晰的商业化路径</h4>
+      <p>MVP 验证后，可拓展付费滤镜包、批量处理、品牌合作等变现方式。</p>
+    </div>
+  </div>
+  <div style="margin-top: 40px; font-size: 14px; color: #64748b;">
+    AI一键出圈 · 让每一张照片都能一键出圈
+  </div>
+  <div class="footer" style="left: 0; right: 0; justify-content: center; border: none;"><span>AI一键出圈 · 商业计划书 V1.1</span></div>
+</div>
+
+</body>
+</html>

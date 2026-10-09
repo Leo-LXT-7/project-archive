@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>儿童多元兴趣探索计划 · 项目提案 V0.1</title>
+<style>
+  :root{
+    --bg:#f6f5f2;
+    --surface:#ffffff;
+    --ink:#20262e;
+    --text:#374151;
+    --muted:#6c7680;
+    --line:#e7e4de;
+    --brand:#12695f;
+    --brand-soft:#e8f3f1;
+    --accent:#c2761c;
+    --accent-soft:#fbf2e4;
+    --radius:16px;
+    --shadow:0 1px 2px rgba(16,24,40,.04), 0 10px 28px -14px rgba(16,24,40,.18);
+  }
+
+  *{box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;scroll-padding-top:76px;}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:16px;
+    line-height:1.78;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:72px 24px 60px;
+    background:
+      radial-gradient(1100px 380px at 8% -20%, #d7ece8 0%, transparent 62%),
+      radial-gradient(900px 340px at 92% -10%, #fbeed8 0%, transparent 58%),
+      #fff;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .hero-inner{max-width:900px;margin:0 auto;}
+  .eyebrow{
+    display:inline-block;
+    margin:0 0 18px;
+    padding:5px 13px;
+    font-size:12.5px;
+    letter-spacing:.6px;
+    color:var(--brand);
+    background:var(--brand-soft);
+    border:1px solid #cfe6e2;
+    border-radius:999px;
+  }
+  .hero h1{
+    margin:0 0 16px;
+    font-size:clamp(28px,4.4vw,42px);
+    line-height:1.28;
+    letter-spacing:.5px;
+    font-weight:700;
+  }
+  .hero-sub{
+    margin:0 0 22px;
+    max-width:660px;
+    font-size:16.5px;
+    color:var(--muted);
+    line-height:1.8;
+  }
+  .hero-note{
+    margin:0;
+    font-size:13.5px;
+    color:#8a9199;
+    padding-left:14px;
+    border-left:2px solid var(--line);
+  }
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(255,255,255,.88);
+    backdrop-filter:saturate(180%) blur(12px);
+    -webkit-backdrop-filter:saturate(180%) blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:960px;
+    margin:0 auto;
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding:10px 24px;
+    scrollbar-width:none;
+  }
+  .nav-inner::-webkit-scrollbar{display:none;}
+  .nav a{
+    flex:0 0 auto;
+    white-space:nowrap;
+    font-size:13.5px;
+    color:var(--muted);
+    text-decoration:none;
+    padding:7px 13px;
+    border-radius:999px;
+    border:1px solid transparent;
+    transition:background .18s,color .18s;
+  }
+  .nav a:hover{color:var(--brand);background:var(--brand-soft);}
+  .nav a.active{color:#fff;background:var(--brand);}
+
+  /* ---------- Layout ---------- */
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:38px 24px 90px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px 30px 30px;
+    box-shadow:var(--shadow);
+    animation:rise .5s ease both;
+  }
+  @keyframes rise{
+    from{opacity:0;transform:translateY(10px);}
+    to{opacity:1;transform:none;}
+  }
+
+  .card-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:18px;
+    padding-bottom:14px;
+    border-bottom:1px dashed var(--line);
+  }
+  .num{
+    flex:0 0 auto;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:.6px;
+    color:var(--brand);
+    background:var(--brand-soft);
+    border-radius:8px;
+    padding:7px 10px;
+    line-height:1;
+  }
+  h2{
+    margin:0;
+    font-size:18.5px;
+    font-weight:650;
+    letter-spacing:.3px;
+  }
+
+  /* ---------- Lists ---------- */
+  ul.bullets{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+  }
+  ul.bullets li{
+    position:relative;
+    padding-left:20px;
+    font-size:15px;
+    color:var(--text);
+  }
+  ul.bullets li::before{
+    content:"";
+    position:absolute;
+    left:2px;
+    top:.74em;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--brand);
+    opacity:.45;
+  }
+  ul.bullets li strong{color:var(--ink);font-weight:650;}
+
+  /* ---------- Callout ---------- */
+  .callout{
+    margin-top:18px;
+    background:var(--brand-soft);
+    border-left:3px solid var(--brand);
+    border-radius:0 12px 12px 0;
+    padding:14px 18px;
+    font-size:14.8px;
+    color:#1c4c47;
+    line-height:1.75;
+  }
+  .callout.warm{
+    background:var(--accent-soft);
+    border-left-color:var(--accent);
+    color:#6d4a12;
+  }
+  .callout .label{
+    display:block;
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:.6px;
+    opacity:.75;
+    margin-bottom:4px;
+  }
+
+  /* ---------- Chips ---------- */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+  .chip{
+    font-size:13.5px;
+    color:#2c4f4a;
+    background:#f3f8f7;
+    border:1px solid #d9eae7;
+    border-radius:999px;
+    padding:5px 13px;
+  }
+
+  /* ---------- Grid of minis ---------- */
+  .grid3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:4px;
+  }
+  .mini{
+    background:#fafaf8;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:15px 16px;
+  }
+  .mini h4{
+    margin:0 0 7px;
+    font-size:14px;
+    font-weight:650;
+    color:var(--brand);
+    letter-spacing:.3px;
+  }
+  .mini p{
+    margin:0;
+    font-size:13.6px;
+    color:var(--muted);
+    line-height:1.7;
+  }
+
+  /* ---------- Steps ---------- */
+  .steps{display:flex;flex-direction:column;}
+  .step{
+    position:relative;
+    display:grid;
+    grid-template-columns:44px 1fr;
+    gap:16px;
+    padding-bottom:24px;
+  }
+  .step:last-child{padding-bottom:0;}
+  .step:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    left:21px;
+    top:48px;
+    bottom:2px;
+    width:2px;
+    background:var(--line);
+  }
+  .step-num{
+    width:44px;height:44px;
+    border-radius:50%;
+    background:var(--brand-soft);
+    color:var(--brand);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13.5px;font-weight:700;
+    position:relative;z-index:1;
+    border:1px solid #d5e9e6;
+  }
+  .step-body h3{
+    margin:9px 0 6px;
+    font-size:15.5px;
+    font-weight:650;
+    letter-spacing:.3px;
+  }
+  .step-body p{
+    margin:0;
+    font-size:14.6px;
+    color:var(--text);
+  }
+  .step-body .tags{
+    display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;
+  }
+  .step-body .tags span{
+    font-size:12.8px;color:#4a5a57;
+    background:#f4f6f5;border:1px solid var(--line);
+    border-radius:7px;padding:3px 9px;
+  }
+
+  /* ---------- Flow (MIPS) ---------- */
+  .flow{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:6px;
+  }
+  .flow .node{
+    font-size:14px;
+    font-weight:600;
+    color:var(--brand);
+    background:#f2f8f7;
+    border:1px solid #d5e9e6;
+    border-radius:10px;
+    padding:8px 14px;
+  }
+  .flow .arrow{color:#b9c4c2;font-size:14px;}
+
+  /* ---------- Layers ---------- */
+  .layers{display:flex;flex-direction:column;gap:9px;}
+  .layer{
+    display:grid;
+    grid-template-columns:74px 1fr;
+    gap:14px;
+    align-items:baseline;
+    padding:13px 16px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#fdfdfc;
+  }
+  .layer .lv{
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:.5px;
+    color:var(--accent);
+    background:var(--accent-soft);
+    border-radius:7px;
+    padding:4px 0;
+    text-align:center;
+  }
+  .layer p{margin:0;font-size:14.6px;color:var(--text);}
+  .layer p b{color:var(--ink);font-weight:650;}
+
+  /* ---------- Questions ---------- */
+  ol.questions{
+    margin:0;
+    padding:0;
+    list-style:none;
+    counter-reset:q;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  ol.questions li{
+    counter-increment:q;
+    position:relative;
+    padding:13px 16px 13px 52px;
+    background:#fafaf8;
+    border:1px solid var(--line);
+    border-radius:11px;
+    font-size:14.8px;
+    color:var(--text);
+  }
+  ol.questions li::before{
+    content:"Q" counter(q);
+    position:absolute;
+    left:15px;
+    top:14px;
+    font-family:ui-monospace,Menlo,monospace;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--accent);
+    background:var(--accent-soft);
+    border-radius:6px;
+    padding:3px 7px;
+    line-height:1.2;
+  }
+
+  /* ---------- Definition ---------- */
+  .definition{
+    background:linear-gradient(135deg,#12695f 0%,#0a453f 100%);
+    color:#fff;
+    border-radius:var(--radius);
+    padding:36px 34px;
+    box-shadow:0 18px 40px -22px rgba(10,69,63,.85);
+    position:relative;
+    overflow:hidden;
+  }
+  .definition::after{
+    content:"";
+    position:absolute;
+    right:-70px;top:-70px;
+    width:220px;height:220px;
+    border-radius:50%;
+    background:rgba(255,255,255,.06);
+  }
+  .definition .eyebrow-2{
+    font-size:12.5px;
+    letter-spacing:1.4px;
+    opacity:.72;
+    margin:0 0 14px;
+  }
+  .definition p{
+    margin:0;
+    font-size:clamp(16.5px,2.3vw,19px);
+    line-height:1.9;
+    font-weight:500;
+    position:relative;z-index:1;
+  }
+  .definition strong{color:#ffd9a0;font-weight:700;}
+
+  /* ---------- Principles ---------- */
+  ul.principles{
+    list-style:none;margin:0;padding:0;
+    display:grid;gap:10px;
+  }
+  ul.principles li{
+    position:relative;
+    padding:12px 16px 12px 44px;
+    border:1px solid var(--line);
+    border-radius:11px;
+    background:#fdfdfc;
+    font-size:14.8px;
+    color:var(--text);
+  }
+  ul.principles li::before{
+    content:"✓";
+    position:absolute;
+    left:15px;top:11px;
+    width:20px;height:20px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:700;
+    color:#fff;
+    background:var(--brand);
+    border-radius:50%;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:30px 24px 46px;
+    text-align:center;
+    font-size:13px;
+    color:#9aa1a8;
+    background:#fff;
+  }
+  footer span{color:var(--brand);font-weight:600;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:640px){
+    .hero{padding:52px 20px 44px;}
+    main{padding:26px 16px 70px;gap:16px;}
+    .card{padding:22px 20px 24px;}
+    .card-head{gap:10px;}
+    h2{font-size:16.8px;}
+    .grid3{grid-template-columns:1fr;}
+    .definition{padding:28px 22px;}
+    .layer{grid-template-columns:64px 1fr;gap:10px;padding:12px 13px;}
+    .step{grid-template-columns:38px 1fr;gap:13px;}
+    .step-num{width:38px;height:38px;font-size:12.5px;}
+    .step:not(:last-child)::after{left:18px;top:42px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">项目讨论整理稿 · V0.1</p>
+    <h1>儿童多元兴趣探索计划</h1>
+    <p class="hero-sub">通过多元真实体验，帮助孩子发现兴趣和优势倾向，为后续深度培养提供方向。</p>
+    <p class="hero-note">用途：整理本次项目讨论中的核心想法、关键判断、待验证问题和下一步行动，方便后续与家长、朋友、教育从业者及潜在合作伙伴讨论。</p>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#s1">灵感与洞察</a>
+    <a href="#s2">产品概念</a>
+    <a href="#s3">目标用户</a>
+    <a href="#s4">产品路径</a>
+    <a href="#s5">资源整合</a>
+    <a href="#s6">观察评估</a>
+    <a href="#s7">产品形态</a>
+    <a href="#s8">商业模式</a>
+    <a href="#s9">竞争借鉴</a>
+    <a href="#s10">核心竞争力</a>
+    <a href="#s11">待验证问题</a>
+    <a href="#s12">下一步计划</a>
+    <a href="#s13">一句话定义</a>
+    <a href="#s14">关键原则</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- 01 -->
+  <section class="card" id="s1">
+    <div class="card-head">
+      <span class="num">01</span>
+      <h2>项目灵感与核心洞察</h2>
+    </div>
+    <ul class="bullets">
+      <li>灵感来自对谷爱凌成长经历的观察：孩子小时候接触过多种运动、音乐和其他活动，在持续尝试中逐渐发现自己更喜欢、也更擅长的方向，再进一步深挖。</li>
+      <li><strong>核心假设：</strong>很多孩子的兴趣和优势并不是通过一次测试就能发现，而可能需要在真实活动中进行多领域体验、观察和比较。</li>
+      <li>普通家庭面临的问题是：资源分散、信息不对称、逐项尝试成本高，而且不知道应该先尝试什么。</li>
+      <li>项目希望通过资源整合，让孩子以相对低的试错成本接触更多领域，再根据真实体验决定下一步是否深入。</li>
+    </ul>
+    <div class="callout">
+      <span class="label">核心假设</span>
+      兴趣与优势不是"测"出来的，而是在真实活动的持续尝试中被观察和比较出来的。
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="card" id="s2">
+    <div class="card-head">
+      <span class="num">02</span>
+      <h2>目前形成的产品概念</h2>
+    </div>
+    <ul class="bullets">
+      <li><strong>暂定名称：</strong>儿童多元兴趣探索计划｜项目提案 V0.1。</li>
+      <li><strong>定位：</strong>不是传统兴趣班，也不是一次性的"天赋测试"，而是一套"广度探索 → 观察 → 发现兴趣与优势倾向 → 深度探索"的长期儿童成长探索服务。</li>
+      <li><strong>核心表达：</strong>通过多元真实体验，帮助孩子发现兴趣和优势倾向，为后续深度培养提供方向。</li>
+      <li>不直接承诺"测出天赋"或给孩子贴固定标签，而是基于多次真实体验形成可持续更新的探索档案。</li>
+    </ul>
+  </section>
+
+  <!-- 03 -->
+  <section class="card" id="s3">
+    <div class="card-head">
+      <span class="num">03</span>
+      <h2>目标用户</h2>
+    </div>
+    <ul class="bullets">
+      <li><strong>当前暂定核心年龄：</strong>7–10 岁儿童（国内小学阶段，约小学一至四年级）。</li>
+      <li><strong>理由：</strong>孩子已经能够较好地参与多种真实活动，同时仍处于兴趣和能力方向不断发展的阶段；家长也开始面临"兴趣班怎么选、孩子到底适合什么"的实际问题。</li>
+      <li>年龄范围仍属于待验证假设，后续需要通过真实家长访谈进一步确认。</li>
+    </ul>
+    <div class="callout warm">
+      <span class="label">待验证</span>
+      7–10 岁是否为最合适的核心年龄段，需要真实家长访谈来确认。
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="card" id="s4">
+    <div class="card-head">
+      <span class="num">04</span>
+      <h2>产品路径：广度 → 深度</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3>广度探索</h3>
+          <p>让孩子接触差异较大的领域，而不是一开始就固定在某一个兴趣班。</p>
+          <div class="tags">
+            <span>运动</span><span>艺术</span><span>音乐</span><span>科技</span><span>户外</span><span>表达与创造</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3>发现方向</h3>
+          <p>根据孩子在多个真实项目中的兴趣、主动性、学习方式和表现，寻找值得继续观察的方向。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3>深度探索</h3>
+          <p>如果某一大方向出现明显信号，再进入具体项目的深入体验。例如先发现运动方向，再进一步比较网球、足球、攀岩、高尔夫等。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h3>长期积累</h3>
+          <p>持续积累孩子的探索记录，而不是一次体验后结束。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="card" id="s5">
+    <div class="card-head">
+      <span class="num">05</span>
+      <h2>体验项目与资源整合</h2>
+    </div>
+    <ul class="bullets">
+      <li>项目本身不需要拥有所有场地和设施，而是与本地专业机构合作。</li>
+      <li><strong>潜在合作资源包括：</strong>马术、高尔夫、网球、足球、攀岩、卡丁车、舞蹈、音乐、绘画、机器人／编程、户外活动等。</li>
+      <li><strong>平台负责：</strong>用户组织、探索路径设计、体验组合、观察记录、数据沉淀和家长反馈；专业机构负责场地、教练和具体项目体验。</li>
+      <li><strong>潜在优势之一：</strong>通过批量合作和资源整合，降低家庭单独寻找、预约和逐项体验的成本。</li>
+    </ul>
+    <div class="chips">
+      <span class="chip">马术</span>
+      <span class="chip">高尔夫</span>
+      <span class="chip">网球</span>
+      <span class="chip">足球</span>
+      <span class="chip">攀岩</span>
+      <span class="chip">卡丁车</span>
+      <span class="chip">舞蹈</span>
+      <span class="chip">音乐</span>
+      <span class="chip">绘画</span>
+      <span class="chip">机器人／编程</span>
+      <span class="chip">户外活动</span>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="card" id="s6">
+    <div class="card-head">
+      <span class="num">06</span>
+      <h2>观察与评估体系</h2>
+    </div>
+    <p style="margin:0 0 16px;font-size:15px;color:var(--text);">
+      讨论形成的方向：<strong>家长 + 专业教练 + 项目观察员</strong>三方共同提供信息。
+    </p>
+    <div class="grid3">
+      <div class="mini">
+        <h4>专业教练</h4>
+        <p>提供专业项目观察，判断孩子在具体项目中的表现与潜力信号。</p>
+      </div>
+      <div class="mini">
+        <h4>项目观察员</h4>
+        <p>负责跨项目、统一标准的记录，保证不同体验之间的可比性。</p>
+      </div>
+      <div class="mini">
+        <h4>家长</h4>
+        <p>提供家庭场景和长期行为反馈，补充真实生活中的表现线索。</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:20px;">
+      <span class="label">观察重点</span>
+      不应只是"喜不喜欢"，还包括：主动性、持续投入、学习新技能的方式、问题解决、空间感、身体协调、创造性、表达沟通、团队合作、面对失败时的反应等。
+    </div>
+
+    <ul class="bullets" style="margin-top:18px;">
+      <li>AI 可以作为辅助分析工具，把多次、跨项目的结构化观察数据进行汇总，寻找反复出现的模式。</li>
+      <li><strong>原则：</strong>AI 不单独判定孩子"是什么天才"，而是生成"值得继续观察的兴趣与优势倾向"，并辅助专业人员解释。</li>
+      <li><strong>长期价值假设：</strong>7 岁、8 岁、9 岁、10 岁持续积累后，可能形成比一次性测评更有价值的儿童兴趣与优势探索档案。</li>
+    </ul>
+  </section>
+
+  <!-- 07 -->
+  <section class="card" id="s7">
+    <div class="card-head">
+      <span class="num">07</span>
+      <h2>全年产品形态</h2>
+    </div>
+    <ul class="bullets">
+      <li>目前倾向不把项目定义成一次性的暑期夏令营。</li>
+      <li>更合理的产品形态是<strong>全年制儿童探索计划</strong>：平时低频探索 + 寒暑假集中探索。</li>
+      <li>平时可以利用周末等课余时间进行单次或小规模体验；寒暑假可以进行集中式、多项目探索。</li>
+      <li>未来可能形成会员制或年度探索计划，但收费方式和产品周期尚未验证。</li>
+    </ul>
+  </section>
+
+  <!-- 08 -->
+  <section class="card" id="s8">
+    <div class="card-head">
+      <span class="num">08</span>
+      <h2>商业模式初步假设</h2>
+    </div>
+    <ul class="bullets">
+      <li><strong>核心价值：</strong>不是简单出售兴趣体验，而是帮助家长降低儿童兴趣探索的试错成本。</li>
+      <li><strong>潜在收入来源：</strong>探索套餐、年度探索计划／会员、主题探索营、深度探索服务，以及与合作机构形成合理的合作分成。</li>
+      <li><strong>前提是三方共赢：</strong>孩子获得真实体验，家长降低试错成本并获得有价值的信息，合作机构获得精准的新客和长期客户。</li>
+    </ul>
+    <div class="chips">
+      <span class="chip">探索套餐</span>
+      <span class="chip">年度探索计划／会员</span>
+      <span class="chip">主题探索营</span>
+      <span class="chip">深度探索服务</span>
+      <span class="chip">合作分成</span>
+    </div>
+    <div class="callout warm">
+      <span class="label">尚未验证</span>
+      价格、毛利、合作分成比例和家长实际支付意愿目前均未验证。
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section class="card" id="s9">
+    <div class="card-head">
+      <span class="num">09</span>
+      <h2>竞争与借鉴对象</h2>
+    </div>
+    <ul class="bullets">
+      <li><strong>目前发现的重要学习对象：</strong>新加坡 ChildFirst 的 MIPS（Multiple Intelligences Programme）。</li>
+      <li>其核心思路与本项目存在明显相似之处：Exposure → Observation → Discovery → Development，即接触、观察、发现、发展。</li>
+      <li><strong>值得研究的部分：</strong>多领域体验、持续观察、资源整合，以及从广度探索逐渐走向发展。</li>
+      <li><strong>我们的潜在差异方向：</strong>聚焦 7–10 岁小学阶段；独立于单一学校或单一兴趣机构；跨机构组织真实体验；建立统一的跨项目观察体系；持续形成儿童探索档案；探索 AI 辅助分析。</li>
+    </ul>
+
+    <div class="flow">
+      <span class="node">Exposure 接触</span>
+      <span class="arrow">→</span>
+      <span class="node">Observation 观察</span>
+      <span class="arrow">→</span>
+      <span class="node">Discovery 发现</span>
+      <span class="arrow">→</span>
+      <span class="node">Development 发展</span>
+    </div>
+
+    <div class="callout" style="margin-top:20px;">
+      <span class="label">结论</span>
+      目前不能简单称为"蓝海"，更准确的说法是：已有相关模式被验证，但仍可能存在新的产品组合和服务形态需要验证。
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="card" id="s10">
+    <div class="card-head">
+      <span class="num">10</span>
+      <h2>目前最重要的核心竞争力假设</h2>
+    </div>
+    <div class="layers">
+      <div class="layer">
+        <span class="lv">第一层</span>
+        <p><b>资源整合能力</b>——能够组织普通家庭平时较难接触的多样化体验。</p>
+      </div>
+      <div class="layer">
+        <span class="lv">第二层</span>
+        <p><b>产品方法</b>——不是简单"带孩子玩很多项目"，而是设计有逻辑的广度到深度探索路径。</p>
+      </div>
+      <div class="layer">
+        <span class="lv">第三层</span>
+        <p><b>观察体系</b>——建立跨项目、相对标准化的观察框架。</p>
+      </div>
+      <div class="layer">
+        <span class="lv">第四层</span>
+        <p><b>长期数据</b>——持续积累孩子真实体验中的表现，形成个人探索档案。</p>
+      </div>
+      <div class="layer">
+        <span class="lv">第五层</span>
+        <p><b>AI 辅助</b>——基于长期、多项目数据寻找重复出现的兴趣和优势模式。</p>
+      </div>
+    </div>
+    <div class="callout">
+      <span class="label">关键判断</span>
+      真正可能形成长期壁垒的，应该是<b>方法、数据和长期服务</b>，而不仅仅是合作场地资源。
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="card" id="s11">
+    <div class="card-head">
+      <span class="num">11</span>
+      <h2>当前最大的待验证问题</h2>
+    </div>
+    <ol class="questions">
+      <li>家长是否真的认为"帮助孩子发现兴趣和优势"是一个值得付费解决的问题？</li>
+      <li>家长愿意为一次体验、一个探索套餐或全年探索计划支付多少钱？</li>
+      <li>家长是否愿意让孩子持续参加多个不同领域的体验？</li>
+      <li>7–10 岁是否是最合适的核心年龄段？</li>
+      <li>孩子在短期体验中的表现，是否能够形成具有实际参考价值的优势倾向信息？</li>
+      <li>教练、观察员和家长三方信息能否稳定、可靠地结构化记录？</li>
+      <li>AI 能否在真实数据积累后提供有用而不过度武断的分析？</li>
+      <li>合作机构为什么愿意加入？合作模式怎样才能让机构也获得价值？</li>
+    </ol>
+  </section>
+
+  <!-- 12 -->
+  <section class="card" id="s12">
+    <div class="card-head">
+      <span class="num">12</span>
+      <h2>下一步验证计划</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3>家长需求访谈（而不是马上开发网站）</h3>
+          <p>重点询问家长过去真实发生过的行为：给孩子报过哪些兴趣班、花费多少、为什么选择、为什么放弃、有没有后悔过、有没有不知道孩子适合什么方向的经历。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3>制作家长需求验证问卷</h3>
+          <p>获取更大范围的数据，验证需求普遍性与支付意愿分布。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3>访谈潜在合作机构</h3>
+          <p>了解他们对获客、闲置时段、体验课和合作分成的真实需求。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h3>继续拆解已有案例</h3>
+          <p>研究 ChildFirst MIPS 等已有案例，分析它们已经解决了什么、没有解决什么。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-body">
+          <h3>小规模 MVP</h3>
+          <p>在一个城市、一个年龄段、小规模用户中做 MVP，验证真实付费，而不是先做复杂网站。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">06</div>
+        <div class="step-body">
+          <h3>再开发平台与 AI 能力</h3>
+          <p>只有当需求、交付方式和付费意愿得到验证后，再开发完整的数字化平台和 AI 能力。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="definition" id="s13">
+    <p class="eyebrow-2">一句话项目定义</p>
+    <p>一个面向 <strong>7–10 岁儿童</strong>的全年多元兴趣探索计划：通过整合本地优质体验资源，让孩子以较低试错成本接触多个领域，再通过持续观察和 AI 辅助分析，帮助家庭发现值得继续探索的兴趣与优势倾向，并从广度探索逐步进入深度培养。</p>
+  </section>
+
+  <!-- 14 -->
+  <section class="card" id="s14">
+    <div class="card-head">
+      <span class="num">附录</span>
+      <h2>当前讨论中的关键原则</h2>
+    </div>
+    <ul class="principles">
+      <li>先验证需求，再开发产品。</li>
+      <li>先真实体验，再做判断。</li>
+      <li>不把孩子一次性贴上"天赋"标签。</li>
+      <li>广度探索优先于过早定向，发现信号后再深挖。</li>
+      <li>商业模式要让孩子、家长、合作机构三方都有价值。</li>
+      <li>资源合作是优势，但真正需要长期建立的是方法、数据和服务能力。</li>
+      <li>AI 用于辅助发现模式，不替代专业判断和家长决策。</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  儿童多元兴趣探索计划 · 项目讨论整理稿 <span>V0.1</span> ｜ 内部讨论用，非最终方案
+</footer>
+
+<script>
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+    var sections = links.map(function (a) {
+      return document.querySelector(a.getAttribute('href'));
+    });
+
+    function update() {
+      var y = window.scrollY + 130;
+      var current = sections[0];
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i] && sections[i].offsetTop <= y) current = sections[i];
+      }
+      // 页面到底时，高亮最后一个
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) {
+        current = sections[sections.length - 1];
+      }
+      links.forEach(function (a) {
+        var on = a.getAttribute('href') === '#' + current.id;
+        a.classList.toggle('active', on);
+        if (on && window.innerWidth < 900) {
+          a.scrollIntoView({ block: 'nearest', inline: 'center' });
+        }
+      });
+    }
+
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () { update(); ticking = false; });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>
+
+</body>
+</html>

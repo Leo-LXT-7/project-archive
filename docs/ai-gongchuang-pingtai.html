@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 共创作品平台 · 项目策划书 V0.1</title>
+<style>
+  :root{
+    --bg:#FAFAF9;
+    --surface:#FFFFFF;
+    --text:#18181B;
+    --text-2:#52525B;
+    --text-3:#8E8E98;
+    --line:#E9E9E7;
+    --accent:#6D5EF6;
+    --accent-soft:rgba(109,94,246,.08);
+    --accent-line:rgba(109,94,246,.22);
+    --radius:14px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    font-size:16px;
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* 顶部氛围光 */
+  body::before{
+    content:"";
+    position:fixed;
+    top:0; left:0; right:0;
+    height:520px;
+    background:radial-gradient(ellipse 65% 100% at 50% 0%, rgba(109,94,246,.13), transparent 68%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .page{
+    position:relative;
+    z-index:1;
+    max-width:800px;
+    margin:0 auto;
+    padding:0 24px 120px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:88px 0 20px;
+    text-align:center;
+  }
+
+  .badge{
+    display:inline-block;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:.08em;
+    color:var(--accent);
+    background:var(--accent-soft);
+    border:1px solid var(--accent-line);
+    padding:5px 15px;
+    border-radius:999px;
+  }
+
+  h1{
+    font-size:clamp(30px,5.2vw,42px);
+    font-weight:700;
+    letter-spacing:-.022em;
+    line-height:1.28;
+    margin:24px 0 16px;
+  }
+
+  .sub{
+    font-size:clamp(15.5px,2.4vw,18px);
+    color:var(--text-2);
+    line-height:1.75;
+    max-width:560px;
+    margin:0 auto;
+  }
+
+  .hero-goal{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    margin-top:34px;
+    padding:11px 20px;
+    font-size:14px;
+    color:var(--text-2);
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:999px;
+    box-shadow:0 1px 2px rgba(0,0,0,.02);
+  }
+
+  .hero-goal .dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 3px rgba(109,94,246,.16);
+    flex:none;
+  }
+
+  /* ---------- TOC ---------- */
+  .toc{
+    margin-top:56px;
+    padding-top:36px;
+    border-top:1px solid var(--line);
+  }
+
+  .toc-title{
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:.14em;
+    color:var(--text-3);
+    margin-bottom:16px;
+  }
+
+  .toc-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .toc-item{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    padding:9px 14px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    text-decoration:none;
+    color:var(--text-2);
+    font-size:14px;
+    line-height:1.5;
+    transition:border-color .18s, color .18s, transform .18s, box-shadow .18s;
+  }
+
+  .toc-item:hover{
+    border-color:var(--accent-line);
+    color:var(--text);
+    transform:translateY(-1px);
+    box-shadow:0 4px 14px -8px rgba(109,94,246,.4);
+  }
+
+  .toc-item .n{
+    font-size:11.5px;
+    font-weight:700;
+    color:var(--accent);
+    font-variant-numeric:tabular-nums;
+    flex:none;
+  }
+
+  /* ---------- SECTION ---------- */
+  main > .sec{
+    margin-top:56px;
+    padding-top:56px;
+    border-top:1px solid var(--line);
+    scroll-margin-top:24px;
+  }
+
+  main > .sec:first-child{
+    margin-top:52px;
+    padding-top:0;
+    border-top:none;
+  }
+
+  .sec-head{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    margin-bottom:24px;
+  }
+
+  .num{
+    flex:none;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--accent);
+    background:var(--accent-soft);
+    border-radius:8px;
+    padding:3px 9px;
+    font-variant-numeric:tabular-nums;
+  }
+
+  .sec-head h2{
+    font-size:20.5px;
+    font-weight:600;
+    letter-spacing:-.012em;
+    line-height:1.4;
+  }
+
+  .sec-body > p{
+    color:var(--text-2);
+    line-height:1.9;
+    margin-bottom:16px;
+  }
+
+  .sec-body > p:last-child{margin-bottom:0}
+
+  .sec-body strong{color:var(--text);font-weight:600}
+
+  /* ---------- LISTS ---------- */
+  ul.plain{
+    list-style:none;
+    margin:18px 0;
+  }
+
+  ul.plain li{
+    position:relative;
+    padding-left:22px;
+    margin-bottom:9px;
+    color:var(--text-2);
+    line-height:1.85;
+  }
+
+  ul.plain li::before{
+    content:"";
+    position:absolute;
+    left:6px;
+    top:.78em;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--accent);
+    opacity:.55;
+  }
+
+  /* ---------- CALLOUT ---------- */
+  .callout{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+    border-radius:12px;
+    padding:18px 22px;
+    margin:24px 0;
+    color:var(--text);
+    font-size:15.5px;
+    line-height:1.85;
+  }
+
+  .lead-q{
+    font-size:17px;
+    font-weight:600;
+    color:var(--text);
+    line-height:1.8;
+    padding-left:18px;
+    border-left:3px solid var(--accent);
+    margin:26px 0;
+  }
+
+  /* ---------- MAP GRID ---------- */
+  .map{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+    margin:22px 0;
+  }
+
+  .map-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 14px;
+    font-size:14px;
+    color:var(--text-2);
+  }
+
+  .map-row .k{color:var(--text);font-weight:500}
+  .map-row .a{color:var(--accent);font-weight:600}
+
+  /* ---------- DARK CARD ---------- */
+  .dark-card{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(150deg,#1B1A2C 0%,#272242 58%,#312A56 100%);
+    border-radius:20px;
+    padding:36px 32px;
+    color:#fff;
+    margin-top:6px;
+  }
+
+  .dark-card::after{
+    content:"";
+    position:absolute;
+    width:300px;height:300px;
+    right:-100px;top:-120px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(139,92,246,.5), transparent 70%);
+    filter:blur(24px);
+    pointer-events:none;
+  }
+
+  .dark-card > *{position:relative;z-index:1}
+
+  .d-label{
+    font-size:12px;
+    letter-spacing:.14em;
+    color:rgba(255,255,255,.45);
+    font-weight:600;
+    margin-bottom:12px;
+  }
+
+  .d-title{
+    font-size:25px;
+    font-weight:700;
+    letter-spacing:-.015em;
+    line-height:1.35;
+  }
+
+  .d-en{
+    font-size:13.5px;
+    color:rgba(255,255,255,.5);
+    margin-top:6px;
+    letter-spacing:.02em;
+  }
+
+  .d-divider{
+    height:1px;
+    background:rgba(255,255,255,.12);
+    margin:26px 0;
+  }
+
+  .d-not{
+    font-size:15px;
+    color:rgba(255,255,255,.5);
+    line-height:1.8;
+  }
+
+  .d-not s{text-decoration-color:rgba(255,255,255,.35)}
+
+  .d-is{
+    font-size:16.5px;
+    color:#fff;
+    line-height:1.85;
+    margin-top:10px;
+    font-weight:500;
+  }
+
+  .formula{
+    margin-top:28px;
+    display:inline-block;
+    padding:10px 22px;
+    border-radius:999px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.14);
+    font-size:16px;
+    font-weight:600;
+    letter-spacing:.04em;
+    color:#C9C3FF;
+  }
+
+  /* ---------- CARD GRID ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-top:22px;
+  }
+
+  .grid-3{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(205px,1fr));
+    gap:12px;
+    margin-top:22px;
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:19px 20px;
+    transition:border-color .2s, box-shadow .2s, transform .2s;
+  }
+
+  .card:hover{
+    border-color:var(--accent-line);
+    box-shadow:0 6px 22px -12px rgba(109,94,246,.5);
+    transform:translateY(-2px);
+  }
+
+  .card .emoji{
+    font-size:19px;
+    line-height:1;
+    display:block;
+    margin-bottom:11px;
+  }
+
+  .card h3{
+    font-size:15.5px;
+    font-weight:600;
+    margin-bottom:7px;
+    letter-spacing:-.005em;
+  }
+
+  .card p{
+    font-size:14px;
+    color:var(--text-3);
+    line-height:1.75;
+  }
+
+  /* ---------- FLOW CHIPS ---------- */
+  .flow{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px;
+    margin:24px 0;
+  }
+
+  .flow .chip{
+    padding:8px 15px;
+    border-radius:999px;
+    font-size:14px;
+    font-weight:500;
+    background:var(--surface);
+    border:1px solid var(--line);
+    color:var(--text-2);
+  }
+
+  .flow .chip.human{
+    background:var(--accent-soft);
+    border-color:var(--accent-line);
+    color:var(--accent);
+    font-weight:600;
+  }
+
+  .flow .arw{color:var(--text-3);font-size:13px}
+
+  /* ---------- MOCK ---------- */
+  .mock{
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    background:var(--surface);
+    margin-top:24px;
+    box-shadow:0 12px 36px -26px rgba(0,0,0,.4);
+  }
+
+  .mock-bar{
+    display:flex;
+    gap:6px;
+    padding:12px 16px;
+    background:#F5F5F4;
+    border-bottom:1px solid var(--line);
+  }
+
+  .mock-bar span{
+    width:9px;height:9px;border-radius:50%;
+    background:#D9D9D6;
+  }
+
+  .mock-body{padding:28px 26px 32px}
+
+  .mock-title{
+    font-size:21px;
+    font-weight:700;
+    letter-spacing:-.015em;
+    margin-bottom:10px;
+  }
+
+  .mock-meta{
+    font-size:13.5px;
+    color:var(--text-3);
+    line-height:2;
+  }
+
+  .mock-meta b{
+    color:var(--text-2);
+    font-weight:500;
+  }
+
+  .mock-secs{
+    margin-top:24px;
+    display:grid;
+    gap:9px;
+  }
+
+  .mock-sec{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:11px 16px;
+    background:#FAFAF9;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-size:14px;
+    color:var(--text-2);
+  }
+
+  .mock-sec span:last-child{
+    color:var(--text-3);
+    font-size:13px;
+  }
+
+  /* ---------- DON'T ---------- */
+  .dont-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:9px;
+    margin-top:22px;
+  }
+
+  .dont{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 16px;
+    background:var(--surface);
+    border:1px dashed #E0E0DD;
+    border-radius:11px;
+    font-size:14.5px;
+    color:var(--text-3);
+  }
+
+  .dont i{
+    font-style:normal;
+    font-size:14px;
+    font-weight:700;
+    color:#E5484D;
+    opacity:.75;
+    flex:none;
+  }
+
+  /* ---------- QUESTION CARDS ---------- */
+  .q-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px 22px;
+    margin-bottom:10px;
+    transition:border-color .2s, box-shadow .2s;
+  }
+
+  .q-card:hover{
+    border-color:var(--accent-line);
+    box-shadow:0 6px 22px -14px rgba(109,94,246,.6);
+  }
+
+  .q-n{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.1em;
+    color:var(--accent);
+    margin-bottom:8px;
+  }
+
+  .q-card p{
+    font-size:15.5px;
+    color:var(--text);
+    line-height:1.85;
+  }
+
+  /* ---------- HYPOTHESIS ---------- */
+  .hypo{
+    margin-top:22px;
+    padding:26px 26px;
+    border-radius:16px;
+    background:linear-gradient(135deg, rgba(109,94,246,.07), rgba(139,92,246,.04));
+    border:1px solid var(--accent-line);
+  }
+
+  .hypo .hypo-label{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.12em;
+    color:var(--accent);
+    margin-bottom:12px;
+  }
+
+  .hypo p{
+    font-size:16.5px;
+    line-height:1.9;
+    color:var(--text);
+    font-weight:500;
+  }
+
+  /* ---------- VERDICT ---------- */
+  .verdict{
+    margin-top:22px;
+    padding:24px 26px;
+    border-radius:16px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+  }
+
+  .verdict .v-main{
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:-.01em;
+    line-height:1.7;
+    margin-bottom:14px;
+  }
+
+  .verdict p{
+    font-size:15px;
+    color:var(--text-2);
+    line-height:1.9;
+  }
+
+  /* ---------- NEXT ---------- */
+  .next-list{
+    margin-top:22px;
+    counter-reset:n;
+    list-style:none;
+  }
+
+  .next-list li{
+    counter-increment:n;
+    position:relative;
+    padding:16px 20px 16px 56px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    margin-bottom:9px;
+    font-size:15.5px;
+    color:var(--text);
+    line-height:1.8;
+  }
+
+  .next-list li::before{
+    content:counter(n);
+    position:absolute;
+    left:20px;
+    top:16px;
+    width:22px;height:22px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:50%;
+    background:var(--accent-soft);
+    color:var(--accent);
+    font-size:12.5px;
+    font-weight:700;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .foot{
+    margin-top:80px;
+    padding-top:32px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+    font-size:13px;
+    color:var(--text-3);
+    letter-spacing:.01em;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:640px){
+    .page{padding:0 18px 80px}
+    .hero{padding:60px 0 16px}
+    .toc-grid{grid-template-columns:1fr}
+    .grid{grid-template-columns:1fr}
+    .map{grid-template-columns:1fr}
+    main > .sec{margin-top:44px;padding-top:44px}
+    .dark-card{padding:28px 22px}
+    .d-title{font-size:22px}
+    .mock-body{padding:22px 18px 26px}
+    .foot{flex-direction:column;align-items:flex-start;gap:8px}
+  }
+
+  /* ---------- PRINT ---------- */
+  @media print{
+    body::before{display:none}
+    .toc{display:none}
+    body{background:#fff}
+    .card,.q-card,.mock,.dark-card,.hypo,.verdict{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ================= HERO ================= -->
+  <header class="hero">
+    <div class="badge">项目策划书 · V0.1</div>
+    <h1>AI 共创作品平台</h1>
+    <p class="sub">让人与 AI 一起创作的作品，<br>被看见、被分享、被发现</p>
+    <div class="hero-goal">
+      <span class="dot"></span>
+      本版本目的：不是马上开发，而是验证这个想法有没有真实需求
+    </div>
+  </header>
+
+  <!-- ================= TOC ================= -->
+  <nav class="toc">
+    <div class="toc-title">目 录</div>
+    <div class="toc-grid">
+      <a class="toc-item" href="#s01"><span class="n">01</span>项目缘起</a>
+      <a class="toc-item" href="#s02"><span class="n">02</span>项目核心概念</a>
+      <a class="toc-item" href="#s03"><span class="n">03</span>平台可能出现什么作品</a>
+      <a class="toc-item" href="#s04"><span class="n">04</span>我们真正想展示的东西</a>
+      <a class="toc-item" href="#s05"><span class="n">05</span>三个核心角色</a>
+      <a class="toc-item" href="#s06"><span class="n">06</span>与普通 AI 工具的区别</a>
+      <a class="toc-item" href="#s07"><span class="n">07</span>市场上有没有类似产品</a>
+      <a class="toc-item" href="#s08"><span class="n">08</span>我们暂时不做什么</a>
+      <a class="toc-item" href="#s09"><span class="n">09</span>第一阶段：需求验证</a>
+      <a class="toc-item" href="#s10"><span class="n">10</span>第一个实验</a>
+      <a class="toc-item" href="#s11"><span class="n">11</span>第二阶段：如果验证成功</a>
+      <a class="toc-item" href="#s12"><span class="n">12</span>项目最大的未知数</a>
+      <a class="toc-item" href="#s13"><span class="n">13</span>目前的核心假设</a>
+      <a class="toc-item" href="#s14"><span class="n">14</span>我对项目的判断</a>
+      <a class="toc-item" href="#s15"><span class="n">15</span>下一步</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ============ 01 ============ -->
+    <section class="sec" id="s01">
+      <div class="sec-head"><span class="num">01</span><h2>项目缘起</h2></div>
+      <div class="sec-body">
+        <p>最近发现一个很有意思的现象：AI 已经越来越强，很多人开始使用 ChatGPT、Claude、Gemini、Midjourney、Sora 等工具进行创作。</p>
+        <ul class="plain">
+          <li>有人用 AI 写小说、诗歌、历史作品、哲学作品；</li>
+          <li>有人制作图片、漫画、视频；</li>
+          <li>有人用 AI 做游戏、互动故事，甚至完整的网站。</li>
+        </ul>
+        <p>但是，目前这些作品往往是散落在不同平台上的。例如：</p>
+
+        <div class="map">
+          <div class="map-row"><span class="k">AI 图片</span><span class="a">→</span><span>图片社区</span></div>
+          <div class="map-row"><span class="k">AI 视频</span><span class="a">→</span><span>视频平台</span></div>
+          <div class="map-row"><span class="k">AI 游戏</span><span class="a">→</span><span>游戏平台</span></div>
+          <div class="map-row"><span class="k">AI 小说</span><span class="a">→</span><span>小说平台</span></div>
+          <div class="map-row"><span class="k">AI 音乐</span><span class="a">→</span><span>音乐平台</span></div>
+        </div>
+
+        <p class="lead-q">当一件作品是「人 + AI」共同完成的，它到底应该属于什么类型的作品？</p>
+
+        <p>传统出版体系可能并没有完全适应这种新的创作方式。比如我们现在就有一个真实案例：</p>
+
+        <div class="callout">
+          一位创作者与 ChatGPT 长期合作，完成了一部哲学 / 历史类书籍。作品已经完成，而且有一定内容质量。<br><br>
+          但它既不是传统意义上的纯人工写作，也不完全是 AI 自动生成。因此在传统出版体系之外，反而出现了一个新的问题——<strong>这样的作品应该在哪里展示？</strong>
+        </div>
+
+        <p>这可能就是一个值得探索的新需求。</p>
+      </div>
+    </section>
+
+    <!-- ============ 02 ============ -->
+    <section class="sec" id="s02">
+      <div class="sec-head"><span class="num">02</span><h2>项目核心概念</h2></div>
+      <div class="sec-body">
+
+        <div class="dark-card">
+          <div class="d-label">暂 定 名 称</div>
+          <div class="d-title">AI 共创作品平台</div>
+          <div class="d-en">AI Co-Creation Platform</div>
+
+          <div class="d-divider"></div>
+
+          <div class="d-not">核心不是——<s>「一个 AI 帮你写东西的网站。」</s></div>
+          <div class="d-is">而是一个专门展示、发现和分享「人与 AI 共同创作的作品」的平台。</div>
+
+          <div class="formula">人 + AI → 作品</div>
+        </div>
+
+        <p style="margin-top:24px">这里有一个非常重要的区别。我们关注的不是 AI 本身，而是：<strong>人 + AI → 作品</strong>。</p>
+      </div>
+    </section>
+
+    <!-- ============ 03 ============ -->
+    <section class="sec" id="s03">
+      <div class="sec-head"><span class="num">03</span><h2>平台未来可能出现什么作品？</h2></div>
+      <div class="sec-body">
+        <p>理论上不应该只限制在「书」。例如：</p>
+
+        <div class="grid">
+          <div class="card">
+            <span class="emoji">📚</span>
+            <h3>AI 共创书籍</h3>
+            <p>小说、科幻、哲学、历史、随笔、诗歌……</p>
+          </div>
+          <div class="card">
+            <span class="emoji">🎨</span>
+            <h3>AI 共创视觉作品</h3>
+            <p>插画、漫画、概念艺术、设计……</p>
+          </div>
+          <div class="card">
+            <span class="emoji">🎬</span>
+            <h3>AI 共创视频</h3>
+            <p>短片、纪录片、实验电影……</p>
+          </div>
+          <div class="card">
+            <span class="emoji">🎮</span>
+            <h3>AI 共创游戏</h3>
+            <p>文字游戏、网页游戏、互动游戏……</p>
+          </div>
+          <div class="card">
+            <span class="emoji">🎵</span>
+            <h3>AI 共创音乐</h3>
+            <p>歌曲、配乐、实验音乐……</p>
+          </div>
+          <div class="card">
+            <span class="emoji">🌍</span>
+            <h3>AI 共创世界</h3>
+            <p>世界观、角色、互动故事、虚拟世界……</p>
+          </div>
+        </div>
+
+        <p style="margin-top:24px">甚至可以出现一种新的作品形式：<strong>一个人和 AI 连续合作了 3 个月，最终创造出来的一整个作品宇宙。</strong></p>
+      </div>
+    </section>
+
+    <!-- ============ 04 ============ -->
+    <section class="sec" id="s04">
+      <div class="sec-head"><span class="num">04</span><h2>我们真正想展示的东西</h2></div>
+      <div class="sec-body">
+        <p>这里可能是这个项目最有意思的地方。</p>
+        <p>普通作品平台通常只展示：<strong>作品是什么</strong>。<br>
+           而 AI 共创平台可以展示：<strong>作品是什么 + 它是怎么被创造出来的</strong>。</p>
+
+        <p style="margin-top:22px">例如你朋友的那本书，它的页面可以长这样：</p>
+
+        <div class="mock">
+          <div class="mock-bar"><span></span><span></span><span></span></div>
+          <div class="mock-body">
+            <div class="mock-title">《XXX》</div>
+            <div class="mock-meta">
+              <b>作者：</b>XXX<br>
+              <b>AI 合作者：</b>ChatGPT<br>
+              <b>创作时间：</b>2026<br>
+              <b>作品类型：</b>哲学 / 历史
+            </div>
+
+            <div class="mock-secs">
+              <div class="mock-sec"><span>创作故事</span><span>「这是我第一次尝试与 AI 长期合作完成一本书……」</span></div>
+              <div class="mock-sec"><span>人与 AI 如何合作</span><span>真实创作片段</span></div>
+              <div class="mock-sec"><span>最终作品</span><span>在线阅读 / PDF / 部分章节</span></div>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top:26px">甚至可以展示这样的创作过程：</p>
+
+        <div class="flow">
+          <span class="chip human">Human</span>
+          <span class="arw">→</span>
+          <span class="chip">AI</span>
+          <span class="arw">→</span>
+          <span class="chip human">Human</span>
+          <span class="arw">→</span>
+          <span class="chip">AI</span>
+          <span class="arw">→</span>
+          <span class="chip human">Human</span>
+        </div>
+
+        <p>也就是说：<strong>「创作过程」本身也成为作品的一部分。</strong></p>
+        <p>我认为这一点可能比「AI 写书」本身更值得研究。</p>
+      </div>
+    </section>
+
+    <!-- ============ 05 ============ -->
+    <section class="sec" id="s05">
+      <div class="sec-head"><span class="num">05</span><h2>平台可能形成的三个核心角色</h2></div>
+      <div class="sec-body">
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>① Creator　创作者</h3>
+            <p style="margin-top:10px;color:var(--text-2)">人类创作者。他们可以：</p>
+            <ul class="plain" style="margin-top:12px;font-size:14px">
+              <li>上传已有作品</li>
+              <li>与 AI 创作</li>
+              <li>展示创作过程</li>
+              <li>发布作品</li>
+              <li>建立自己的创作者主页</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>② AI Co-Creator　AI 共创者</h3>
+            <p style="margin-top:10px;color:var(--text-2)">AI 不一定只是一个「工具」。可以记录：</p>
+            <ul class="plain" style="margin-top:12px;font-size:14px">
+              <li>使用了什么 AI</li>
+              <li>AI 在作品中承担了什么角色</li>
+              <li>人类做了什么、AI 做了什么</li>
+              <li>双方如何反复修改</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>③ Reader / Audience　读者</h3>
+            <p style="margin-top:10px;color:var(--text-2)">普通用户可以：</p>
+            <ul class="plain" style="margin-top:12px;font-size:14px">
+              <li>浏览作品</li>
+              <li>阅读 / 观看 / 玩游戏</li>
+              <li>关注作者</li>
+              <li>评论、分享</li>
+              <li>发现新的 AI 共创作品</li>
+            </ul>
+          </div>
+        </div>
+
+        <p style="margin-top:26px">关于第二个角色，举个具体的例子：</p>
+
+        <div class="flow">
+          <span class="chip human">Human</span><span class="arw">提出历史观点</span>
+          <span class="arw">→</span>
+          <span class="chip">AI</span><span class="arw">整理资料和结构</span>
+          <span class="arw">→</span>
+          <span class="chip human">Human</span><span class="arw">重新定义观点</span>
+          <span class="arw">→</span>
+          <span class="chip">AI</span><span class="arw">帮助扩展论证</span>
+          <span class="arw">→</span>
+          <span class="chip human">Human</span><span class="arw">最终修改</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ 06 ============ -->
+    <section class="sec" id="s06">
+      <div class="sec-head"><span class="num">06</span><h2>和普通 AI 工具最大的区别</h2></div>
+      <div class="sec-body">
+        <p>我们暂时不应该和 ChatGPT、Claude、Gemini 这些 AI 工具竞争。因为它们解决的是：</p>
+
+        <div class="callout" style="border-left-color:#B9B9B6;font-weight:600">「帮我创造。」</div>
+
+        <p>而我们可能解决的是：</p>
+
+        <div class="callout" style="font-weight:600">「我已经创造出来了，让别人发现它。」</div>
+
+        <p>所以平台的核心可以理解为：<strong>AI 创作时代的「作品社区」</strong>。这可能比单纯做一个 AI 生成工具更有意思。</p>
+      </div>
+    </section>
+
+    <!-- ============ 07 ============ -->
+    <section class="sec" id="s07">
+      <div class="sec-head"><span class="num">07</span><h2>目前市场上有没有类似产品？</h2></div>
+      <div class="sec-body">
+        <p>目前已经出现了一些非常接近的产品和平台。例如 AI 游戏创作、AI 视频社区、AI 创作社区、互动故事平台等。</p>
+        <p>这意味着：<strong>「AI 创作 + 社区 + 作品展示」已经有人开始验证。</strong></p>
+        <p>因此我们不能简单地认为：「市场上没有，所以我们做。」恰恰相反，我们应该研究：</p>
+
+        <div class="callout">
+          别人已经做到哪里了？<br>
+          以及——他们没有解决什么？
+        </div>
+
+        <p>这才是这个项目目前最重要的工作。</p>
+      </div>
+    </section>
+
+    <!-- ============ 08 ============ -->
+    <section class="sec" id="s08">
+      <div class="sec-head"><span class="num">08</span><h2>我们暂时不做什么</h2></div>
+      <div class="sec-body">
+        <p>这个非常重要。<strong>V0.1 不开发。</strong>先不做：</p>
+
+        <div class="dont-grid">
+          <div class="dont"><i>✕</i>AI 写作工具</div>
+          <div class="dont"><i>✕</i>AI 绘图工具</div>
+          <div class="dont"><i>✕</i>AI 视频生成器</div>
+          <div class="dont"><i>✕</i>AI 游戏引擎</div>
+          <div class="dont"><i>✕</i>大型社交网络</div>
+          <div class="dont"><i>✕</i>复杂会员系统</div>
+          <div class="dont"><i>✕</i>一上来做 App</div>
+        </div>
+
+        <p style="margin-top:22px">因为这些东西都会把项目带进一个巨大的开发坑。</p>
+      </div>
+    </section>
+
+    <!-- ============ 09 ============ -->
+    <section class="sec" id="s09">
+      <div class="sec-head"><span class="num">09</span><h2>第一阶段：需求验证</h2></div>
+      <div class="sec-body">
+        <p>我们现在真正需要验证的只有几个问题。</p>
+
+        <div class="q-card">
+          <div class="q-n">问题 1</div>
+          <p>已经使用 AI 创作出作品的人，愿不愿意把作品公开展示？</p>
+        </div>
+
+        <div class="q-card">
+          <div class="q-n">问题 2</div>
+          <p>普通人有没有兴趣看「人与 AI 是怎么共同创作一个作品的」？</p>
+        </div>
+
+        <div class="q-card">
+          <div class="q-n">问题 3</div>
+          <p>AI 共创作品是否需要一个独立的展示空间？还是说——小红书 / YouTube / B 站 / GitHub / 豆瓣 / Steam 等已经足够？</p>
+        </div>
+
+        <div class="q-card">
+          <div class="q-n">问题 4 · 最关键</div>
+          <p>如果有这样一个平台，创作者为什么愿意来？<br>这决定了项目有没有价值。</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ 10 ============ -->
+    <section class="sec" id="s10">
+      <div class="sec-head"><span class="num">10</span><h2>我们的第一个实验</h2></div>
+      <div class="sec-body">
+        <p>其实我们现在已经有了一个非常好的测试对象：<strong>你朋友的那本书。</strong></p>
+        <p>不用开发平台，甚至不用注册用户。直接做一个 <strong>AI 共创作品 Showcase</strong>：</p>
+
+        <div class="mock">
+          <div class="mock-bar"><span></span><span></span><span></span></div>
+          <div class="mock-body">
+            <div class="mock-title">《XXX》</div>
+            <div class="mock-meta" style="margin-bottom:6px">
+              <b>Human × AI</b><br>
+              作者：XXX　|　AI 合作者：ChatGPT<br>
+              作品类型：哲学 / 历史
+            </div>
+
+            <div class="mock-secs">
+              <div class="mock-sec"><span>关于这部作品</span><span>介绍作品本身</span></div>
+              <div class="mock-sec"><span>为什么开始与 AI 合作？</span><span>介绍创作缘起</span></div>
+              <div class="mock-sec"><span>人和 AI 是如何合作的？</span><span>展示几个真实创作片段</span></div>
+              <div class="mock-sec"><span>最终作品</span><span>在线阅读 / PDF / 部分章节</span></div>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top:26px">然后把这个页面给一批真实用户看，观察他们：</p>
+        <ul class="plain">
+          <li>会不会点开？</li>
+          <li>会不会读？</li>
+          <li>会不会问「这是 AI 写的吗？」</li>
+          <li>会不会想看创作过程？</li>
+          <li>会不会分享？</li>
+        </ul>
+
+        <div class="callout">
+          这些数据，比我们现在坐在这里讨论一个月都有价值。
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 11 ============ -->
+    <section class="sec" id="s11">
+      <div class="sec-head"><span class="num">11</span><h2>如果验证成功，第二阶段才考虑平台</h2></div>
+      <div class="sec-body">
+        <p>如果第一阶段发现：确实有人愿意看，而且创作者也愿意展示。那么可以进一步做 <strong>AI 共创作品社区</strong>。</p>
+
+        <div class="callout" style="text-align:center;font-weight:600;font-size:16px">
+          Discover AI Co-Created Works
+        </div>
+
+        <div class="flow" style="justify-content:center">
+          <span class="chip">📚 Books</span>
+          <span class="chip">🎮 Games</span>
+          <span class="chip">🎨 Art</span>
+          <span class="chip">🎬 Films</span>
+          <span class="chip">🎵 Music</span>
+          <span class="chip">🌍 Worlds</span>
+        </div>
+
+        <p>用户可以：<strong>Discover → Read / Watch / Play → Follow Creator</strong></p>
+        <p>创作者：<strong>Create → Publish → Share → Build Audience</strong></p>
+
+        <p style="margin-top:24px">最终形成这样一个循环：</p>
+
+        <div class="flow" style="justify-content:center">
+          <span class="chip human">创作</span>
+          <span class="arw">→</span>
+          <span class="chip">发布</span>
+          <span class="arw">→</span>
+          <span class="chip">发现</span>
+          <span class="arw">→</span>
+          <span class="chip">交流</span>
+          <span class="arw">→</span>
+          <span class="chip human">新创作</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 12 ============ -->
+    <section class="sec" id="s12">
+      <div class="sec-head"><span class="num">12</span><h2>项目最大的未知数</h2></div>
+      <div class="sec-body">
+        <p>目前我们甚至还不能确定：<strong>「AI 共创作品」是不是一个足够大的独立品类。</strong>这是整个项目最大的风险。</p>
+        <p>可能最终发现：AI 共创只是一个标签，而不是一个新的平台。<br>
+           也可能发现：随着 AI 创作越来越普及，「AI 共创作品」会逐渐成为一个新的内容类别。</p>
+        <p>所以现在不应该急着下结论。</p>
+      </div>
+    </section>
+
+    <!-- ============ 13 ============ -->
+    <section class="sec" id="s13">
+      <div class="sec-head"><span class="num">13</span><h2>目前我们的核心假设</h2></div>
+      <div class="sec-body">
+        <p>暂时只提出一个：</p>
+
+        <div class="hypo">
+          <div class="hypo-label">核 心 假 设</div>
+          <p>当 AI 成为越来越重要的创作伙伴之后，人们不仅需要 AI 创作工具，也会需要一个专门展示、发现和交流 AI 共创作品的空间。</p>
+        </div>
+
+        <p style="margin-top:22px">接下来我们要做的事情，就是：<strong>验证这个假设。</strong></p>
+      </div>
+    </section>
+
+    <!-- ============ 14 ============ -->
+    <section class="sec" id="s14">
+      <div class="sec-head"><span class="num">14</span><h2>我对这个项目目前的判断</h2></div>
+      <div class="sec-body">
+        <p>我会把它定义成：</p>
+
+        <div class="verdict">
+          <div class="v-main">「值得验证，但暂时不值得直接开发。」</div>
+          <p>因为现在最大的价值不是写代码，而是找到：<strong>为什么创作者和读者需要它。</strong></p>
+          <p style="margin-top:12px">如果这个问题回答不出来，平台做得再漂亮也没有意义。</p>
+          <p style="margin-top:12px">但如果我们真的找到一个需求——<br>
+             <strong>「我有作品，但不知道去哪里展示，而且我希望别人看到我和 AI 是如何共同创造它的。」</strong><br>
+             那这个项目就开始有意思了。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 15 ============ -->
+    <section class="sec" id="s15">
+      <div class="sec-head"><span class="num">15</span><h2>下一步</h2></div>
+      <div class="sec-body">
+        <p>所以我建议你先不要把这份东西当最终商业计划书。你可以直接把这份 V0.1 发给你朋友，然后你们两个只讨论三个问题：</p>
+
+        <ol class="next-list">
+          <li>如果有这样一个平台，你愿不愿意把你的书放上去？</li>
+          <li>你希望别人看到你的哪些创作过程？</li>
+          <li>如果没有这个平台，你现在会把这本书放在哪里？为什么？</li>
+        </ol>
+
+        <div class="callout" style="margin-top:24px">
+          这三个问题的答案，可能比我们现在想的所有功能都重要。然后再根据你朋友的真实反馈，把 V0.1 继续迭代成 V0.2。
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <span>AI 共创作品平台 · 项目策划书 V0.1</span>
+    <span>值得验证，但暂时不值得直接开发</span>
+  </footer>
+
+</div>
+</body>
+</html>
